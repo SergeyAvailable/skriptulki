@@ -2,7 +2,7 @@
 
 echo Скрипт для резервного копирования БД Postgresql.
 read -p "Имя базы: " db
-psql -U postgres -l | awk '{print $1}' | grep $db > /dev/null
+psql -U postgres -l | awk '{print $1}' | grep -w $db > /dev/null
   while [ $? != 0 ]
   do echo "Неверное имя БД" 
   read -p "Имя базы: " db
