@@ -2,6 +2,13 @@
 
 echo Скрипт для резервного копирования БД Postgresql.
 read -p "Имя базы: " db
+psql -U postgres -l | awk '{print $1}' | grep $db > /dev/null
+  while [ $? != 0 ]
+  do echo "Неверное имя БД" 
+  read -p "Имя базы: " db
+  psql -U postgres -l | awk '{print $1}' | grep $db > /dev/null
+  done
 read -p "Имя бэкапа: " bckp
-
 pg_dump -U postgres -Fc -Z 1 $db > /backup/db/$bckp.gz
+
+
