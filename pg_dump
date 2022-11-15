@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+echo Скрипт для резервного копирования БД Postgresql.
+read -p "Имя базы: " db
+read -p "Имя бэкапа: " bckp
+
+pg_dump -U postgres -Fc -Z 1 $db > /backup/db/$bckp.gz
