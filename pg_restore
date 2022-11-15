@@ -8,6 +8,7 @@ psql -U postgres -l | awk '{print $1}' | grep -w $db > /dev/null
   read -p "Имя базы: " db
   psql -U postgres -l | awk '{print $1}' | grep $db > /dev/null
   done
+ls /backup/db/
 read -p "Имя бэкапа: " bckp
 dropdb -U postgres $db; createdb -U postgres $db;
 pg_restore -U postgres -d $db -j 5 /backup/db/$bckp
