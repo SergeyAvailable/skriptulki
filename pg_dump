@@ -9,6 +9,12 @@ psql -U postgres -l | awk '{print $1}' | grep -w $db > /dev/null
   psql -U postgres -l | awk '{print $1}' | grep $db > /dev/null
   done
 read -p "Имя бэкапа: " bckp
+ls /backup/db | grep $bckp.gz
+  while [ $? != 0 ]
+  do echo "Бэкап с таким именем уже существует!" 
+  read -p "Имя бэкапа: " bckp
+  ls /backup/db | grep $bckp.gz
+  done
 pg_dump -U postgres -Fc -Z 1 $db > /backup/db/$bckp.gz
 
 
