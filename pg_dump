@@ -1,22 +1,26 @@
 #!/usr/bin/env bash
 
 echo Скрипт для резервного копирования БД Postgresql.
-psql -U postgres -c "SELECT datname FROM pg_database;"
+psql -U postgres -c "SELECT datname FROM pg_database;" | tail -n +3
 read -p "Имя базы: " db
 psql -U postgres -l | awk '{print $1}' | grep -w $db > /dev/null
   while [ $? != 0 ]
-  do echo "Неверное имя БД" 
-  read -p "Имя базы: " db
-  psql -U postgres -l | awk '{print $1}' | grep $db > /dev/null
+    do echo "Неверное имя БД"
+    read -p "Имя базы: " db
+    psql -U postgres -l | awk '{print $1}' | grep $db > /dev/null
   done
 read -p "Имя бэкапа: " bckp
-ls /backup/db | grep $bckp.gz
+ls /backup/db | grep $bckp.gz > /dev/null
   while [ $? = 0 ]
-  do echo "Бэкап с таким именем уже существует!" 
-  read -p "Имя бэкапа: " bckp
-  ls /backup/db | grep $bckp.gz
+    do echo "Бэкап с таким именем уже существует!"
+    read -p "Имя бэкапа: " bckp
+    ls /backup/db | grep $bckp.gz > /dev/null
   done
 pg_dump -U postgres -Fc -Z 1 $db > /backup/db/$bckp.gz
-chmod ug+rwx /backup/db/$bckp.gz
-
-
+if [ $? = 0 ]
+  then
+  chmod ug+rwx /backup/db/$bckp.gz
+  chmod o-rwx /backup/db/$bckp.gz
+  else
+  echo "Что-то пошло не так ¯\_( ͡• ͜ʖ ͡•)_/¯ "
+fi
