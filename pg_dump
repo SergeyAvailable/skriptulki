@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 echo Скрипт для резервного копирования БД Postgresql.
+psql -U postgres -c "SELECT datname FROM pg_database;"
 read -p "Имя базы: " db
 psql -U postgres -l | awk '{print $1}' | grep -w $db > /dev/null
   while [ $? != 0 ]
