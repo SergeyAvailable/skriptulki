@@ -21,4 +21,6 @@ WHERE
 Обрезать "расширение" файла. Единственная проблема, при большом количесвте строк, выводит их в 1 столбец:
 awk -F'[/.]' '{print $(NF-1)}'
 
+https://andreyex.ru/linux/komandy-linux-i-komandy-shell/ispolzovanie-komandy-basename-v-bash-scripts/
+
 
