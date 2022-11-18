@@ -5,6 +5,7 @@ echo -e "Скрипт для восстановления бэкапов Postgre
 select option in Да Нет; do 
 	case $option in 
 		Да)
+			psql -U postgres -c "SELECT datname FROM pg_database;" | tail -n +3
 			echo -e "ВНИМАНИЕ!!!При восстановлении базы, текущая версия будет удалена!!!\n"
 			read -p "Введите имя базы: " db
 			psql -U postgres -l | awk '{print $1}' | grep -w $db > /dev/null
