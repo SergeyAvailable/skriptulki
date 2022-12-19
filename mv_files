@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+#Шаблон по которому отбираются файлы
+for i in *-*;
+    do
+
+    mkdir `echo ${i%} | awk -F'[/-]' '{print$(NF-2)}'`;
+    mv $i `echo ${i%} | awk -F'[/-]' '{print$(NF-2)}'`;
+
+    done;
