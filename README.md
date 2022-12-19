@@ -1,4 +1,5 @@
-Скрипты для постгреса
+Аутистские скрипты, которые пишутся раз в десяток лет
+
 
 
 
@@ -23,4 +24,4 @@ awk -F'[/.]' '{print $(NF-1)}'
 
 https://andreyex.ru/linux/komandy-linux-i-komandy-shell/ispolzovanie-komandy-basename-v-bash-scripts/
 
-
+xargs
