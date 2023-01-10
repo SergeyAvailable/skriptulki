@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+read -p "Количество файлов: " fcount
+read -p "Размер файлов: " fsize
+
+i=0
+
+while [ $i -le $fcount ]
+do
+        dd if=/dev/zero of=/test/file$i bs="$fsize"M count=1
+        ((i++))
+done
